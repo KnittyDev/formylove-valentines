@@ -97,6 +97,7 @@ export default function JourneyPage() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [openModalId, setOpenModalId] = useState<number | null>(null);
   const [showDoYouLoveMe, setShowDoYouLoveMe] = useState(false);
+  const [showFabImage, setShowFabImage] = useState(false);
   const hasStartedRef = useRef(false);
 
   const playMusic = () => {
@@ -599,10 +600,43 @@ export default function JourneyPage() {
         </footer>
       </main>
 
+      {/* FAB image modal */}
+      {showFabImage && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+          onClick={() => setShowFabImage(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Surprise"
+        >
+          <div
+            className="relative max-w-2xl w-full max-h-[90vh] flex items-center justify-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src="/ab601f2ba1915b8e193a7795ffae7f43.jpg"
+              alt="Surprise"
+              className="max-w-full max-h-[85vh] w-auto h-auto object-contain rounded-2xl shadow-2xl"
+            />
+            <button
+              type="button"
+              onClick={() => setShowFabImage(false)}
+              className="absolute -top-2 -right-2 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center text-white transition-colors"
+              aria-label="Close"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* FAB */}
       <button
         type="button"
         aria-label="Love"
+        onClick={() => setShowFabImage(true)}
         className="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-50 bg-primary hover:bg-primary/90 text-white w-12 h-12 sm:w-14 sm:h-14 rounded-full shadow-[0_4px_20px_rgba(255,77,109,0.5)] flex items-center justify-center transition-transform hover:scale-110 active:scale-95 group"
       >
         <span className="absolute inset-0 flex items-center justify-center opacity-40 group-hover:animate-ping">
